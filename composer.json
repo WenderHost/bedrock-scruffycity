@@ -17,19 +17,35 @@
     }
   ],
   "keywords": [
-    "bedrock", "composer", "roots", "wordpress", "wp", "wp-config"
+    "bedrock",
+    "composer",
+    "roots",
+    "wordpress",
+    "wp",
+    "wp-config"
   ],
   "support": {
     "issues": "https://github.com/roots/bedrock/issues",
     "forum": "https://discourse.roots.io/category/bedrock"
   },
-  "repositories": [
-    {
+  "repositories": {
+    "wpengine": {
+      "type": "composer",
+      "url": "https://connect.advancedcustomfields.com"
+    },
+    "satispress": {
+      "type": "composer",
+      "url": "https://packages.wenmarkdigital.com/satispress/"
+    },
+    "0": {
       "type": "composer",
       "url": "https://wpackagist.org",
-      "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
     }
-  ],
+  },
   "require": {
     "php": ">=8.1",
     "composer/installers": "^2.2",
@@ -39,7 +55,16 @@
     "roots/bedrock-disallow-indexing": "^2.0",
     "roots/wordpress": "6.8.2",
     "roots/wp-config": "1.0.0",
-    "wpackagist-theme/twentytwentyfive": "^1.0"
+    "wpackagist-theme/twentytwentyfive": "^1.0",
+    "wpackagist-plugin/elementor": "^3.31",
+    "wpackagist-plugin/disable-gutenberg": "^3.2",
+    "wenmark/elementor-pro": "^3.31",
+    "wpengine/advanced-custom-fields-pro": "^6.5",
+    "wenmark/analyticswp": "^2.2",
+    "wpackagist-plugin/spinupwp": "^1.8",
+    "wpackagist-plugin/limit-login-attempts-reloaded": "^2.26",
+    "wenmark/wpcodebox2": "^1.2",
+    "wpackagist-theme/hello-elementor": "^3.4"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
@@ -57,9 +82,15 @@
   "prefer-stable": true,
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
-      "web/app/themes/{$name}/": ["type:wordpress-theme"]
+      "web/app/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "web/app/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "web/app/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
     },
     "wordpress-install-dir": "web/wp"
   },
