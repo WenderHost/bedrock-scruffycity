@@ -64,7 +64,8 @@
     "wpackagist-plugin/limit-login-attempts-reloaded": "^2.26",
     "wenmark/wpcodebox2": "^1.2",
     "wpackagist-theme/hello-elementor": "^3.4",
-    "wpackagist-plugin/smtp2go": "^1.12"
+    "wpackagist-plugin/smtp2go": "^1.12",
+    "wenmark/gravityforms": "^2.9"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",

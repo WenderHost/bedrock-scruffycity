@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "698a30683b57e2216465cf93f1314410",
+    "content-hash": "9eb96ee6cd1d5610e9723078f704eec1",
     "packages": [
         {
             "name": "composer/installers",
@@ -1055,6 +1055,27 @@
             ],
             "description": "Elevate your designs and unlock the full power of Elementor. Gain access to dozens of Pro widgets and kits, Theme Builder, Pop Ups, Forms and WooCommerce building capabilities.",
             "homepage": "https://go.elementor.com/wp-dash-wp-plugins-author-uri/"
+        },
+        {
+            "name": "wenmark/gravityforms",
+            "version": "2.9.15",
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.wenmarkdigital.com/satispress/gravityforms/2.9.15",
+                "shasum": "c05bd9cf5b23b1e917536f2ef6c5916b59131ee7"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "Gravity Forms",
+                    "homepage": "https://gravityforms.com"
+                }
+            ],
+            "description": "Easily create web forms and manage form entries within the WordPress admin.",
+            "homepage": "https://gravityforms.com"
         },
         {
             "name": "wenmark/wpcodebox2",
