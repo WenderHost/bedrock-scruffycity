@@ -64,7 +64,8 @@
     "wpackagist-plugin/spinupwp": "^1.8",
     "wpackagist-plugin/limit-login-attempts-reloaded": "^2.26",
     "wenmark/wpcodebox2": "^1.2",
-    "wpackagist-theme/hello-elementor": "^3.4"
+    "wpackagist-theme/hello-elementor": "^3.4",
+    "wpackagist-plugin/smtp2go": "^1.12"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
