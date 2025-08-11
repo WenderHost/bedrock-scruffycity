@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce838ed61759cd8bf862161ed9d4ed10",
+    "content-hash": "698a30683b57e2216465cf93f1314410",
     "packages": [
         {
             "name": "composer/installers",
@@ -1184,24 +1184,6 @@
             },
             "type": "wordpress-theme",
             "homepage": "https://wordpress.org/themes/hello-elementor/"
-        },
-        {
-            "name": "wpackagist-theme/twentytwentyfive",
-            "version": "1.2",
-            "source": {
-                "type": "svn",
-                "url": "https://themes.svn.wordpress.org/twentytwentyfive/",
-                "reference": "1.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/twentytwentyfive.1.2.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-theme",
-            "homepage": "https://wordpress.org/themes/twentytwentyfive/"
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",

@@ -55,7 +55,6 @@
     "roots/bedrock-disallow-indexing": "^2.0",
     "roots/wordpress": "6.8.2",
     "roots/wp-config": "1.0.0",
-    "wpackagist-theme/twentytwentyfive": "^1.0",
     "wpackagist-plugin/elementor": "^3.31",
     "wpackagist-plugin/disable-gutenberg": "^3.2",
     "wenmark/elementor-pro": "^3.31",
