@@ -134,6 +134,9 @@ Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 // Disable script concatenation
 Config::define('CONCATENATE_SCRIPTS', false);
 
+Config::define('SMTP2GO_USE_CONSTANTS', env('SMTP2GO_USE_CONSTANTS') ?? false );
+Config::define('SMTP2GO_API_KEY', env('SMTP2GO_API_KEY'));
+
 /**
  * Debugging Settings
  */
