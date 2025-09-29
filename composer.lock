@@ -1106,11 +1106,11 @@
         },
         {
             "name": "wenmark/ithemes-security-pro",
-            "version": "8.5.8",
+            "version": "8.6.0",
             "dist": {
                 "type": "zip",
-                "url": "https://packages.wenmarkdigital.com/satispress/ithemes-security-pro/8.5.8",
-                "shasum": "3d67e1e4347b6e951da32286a057f1682f688299"
+                "url": "https://packages.wenmarkdigital.com/satispress/ithemes-security-pro/8.6.0",
+                "shasum": "c87a1db62fd62d0a719e04ea405650660bc07b72"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
