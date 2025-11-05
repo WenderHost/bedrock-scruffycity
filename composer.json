@@ -53,7 +53,7 @@
     "oscarotero/env": "^2.1",
     "roots/bedrock-autoloader": "^1.0",
     "roots/bedrock-disallow-indexing": "^2.0",
-    "roots/wordpress": "6.8.2",
+    "roots/wordpress": "^6",
     "roots/wp-config": "1.0.0",
     "wpackagist-plugin/elementor": "^3.31",
     "wpackagist-plugin/disable-gutenberg": "^3.2",
