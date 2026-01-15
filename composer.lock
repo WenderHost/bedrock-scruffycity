@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "770f64fab549e99991526adcf4ee4279",
+    "content-hash": "187c1a6e7c25d4cad96021698e73250b",
     "packages": [
         {
             "name": "composer/installers",
@@ -1124,6 +1124,27 @@
             ],
             "description": "Shield your site from cyberattacks and prevent security vulnerabilities. The only security plugin you need for a solid foundation.",
             "homepage": "https://solidwp.com/security"
+        },
+        {
+            "name": "wenmark/sonaar-music-pro",
+            "version": "5.10",
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.wenmarkdigital.com/satispress/sonaar-music-pro/5.10",
+                "shasum": "fbda612a40c668c646ce0c6ae28d5439795a9afd"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "Sonaar Music",
+                    "homepage": "https://sonaar.io/?utm_source=Sonaar%20Music%20Free%20Plugin&#038;utm_medium=plugin"
+                }
+            ],
+            "description": "Unlock the full power of MP3 Audio Player by Sonaar. Many Customizable Options, Unlocked Features and Statistic Reports Available.",
+            "homepage": "https://sonaar.io/?utm_source=Sonaar%20Music%20Free%20Plugin&utm_medium=plugin"
         },
         {
             "name": "wenmark/wpcodebox2",
