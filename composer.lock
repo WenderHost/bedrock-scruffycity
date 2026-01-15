@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ecbff3c1681df20895c88d4ba5841ad",
+    "content-hash": "770f64fab549e99991526adcf4ee4279",
     "packages": [
         {
             "name": "composer/installers",
@@ -1199,6 +1199,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/limit-login-attempts-reloaded/"
+        },
+        {
+            "name": "wpackagist-plugin/mp3-music-player-by-sonaar",
+            "version": "5.10",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/mp3-music-player-by-sonaar/",
+                "reference": "tags/5.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/mp3-music-player-by-sonaar.5.10.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/mp3-music-player-by-sonaar/"
         },
         {
             "name": "wpackagist-plugin/redirection",

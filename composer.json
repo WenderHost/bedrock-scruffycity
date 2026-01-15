@@ -68,7 +68,8 @@
     "wenmark/gravityforms": "^2.9",
     "wpackagist-plugin/simple-page-ordering": "^2.7",
     "wpackagist-plugin/redirection": "^5.5",
-    "wenmark/ithemes-security-pro": "^8.5"
+    "wenmark/ithemes-security-pro": "^8.5",
+    "wpackagist-plugin/mp3-music-player-by-sonaar": "^5.10"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
