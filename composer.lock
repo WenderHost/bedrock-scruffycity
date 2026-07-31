@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ab1322c50198cb0b4cf49cd8b07797a",
+    "content-hash": "1716452092b8a0ef11db9ea54b2b5212",
     "packages": [
         {
             "name": "composer/installers",
@@ -1124,27 +1124,6 @@
             ],
             "description": "Integrates Gravity Forms with Turnstile, a reCAPTCHA replacement from Cloudflare.",
             "homepage": "https://gravityforms.com"
-        },
-        {
-            "name": "wenmark/ithemes-security-pro",
-            "version": "8.6.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://packages.wenmarkdigital.com/satispress/ithemes-security-pro/8.6.0",
-                "shasum": "c87a1db62fd62d0a719e04ea405650660bc07b72"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "authors": [
-                {
-                    "name": "Kadence",
-                    "homepage": "https://kadencewp.com"
-                }
-            ],
-            "description": "Shield your site from cyberattacks and prevent security vulnerabilities. The only security plugin you need.",
-            "homepage": "https://solidwp.com/security"
         },
         {
             "name": "wenmark/sonaar-music-pro",
