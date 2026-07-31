@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64f058f930a20540750a6f96ed57adb8",
+    "content-hash": "5ab1322c50198cb0b4cf49cd8b07797a",
     "packages": [
         {
             "name": "composer/installers",
@@ -1102,6 +1102,27 @@
                 }
             ],
             "description": "Easily create web forms and manage form entries within the WordPress admin.",
+            "homepage": "https://gravityforms.com"
+        },
+        {
+            "name": "wenmark/gravityformsturnstile",
+            "version": "1.5.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.wenmarkdigital.com/satispress/gravityformsturnstile/1.5.0",
+                "shasum": "51ef4713e5c319bdc95f97e41a2572577e65edec"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "Gravity Forms",
+                    "homepage": "https://gravityforms.com"
+                }
+            ],
+            "description": "Integrates Gravity Forms with Turnstile, a reCAPTCHA replacement from Cloudflare.",
             "homepage": "https://gravityforms.com"
         },
         {
