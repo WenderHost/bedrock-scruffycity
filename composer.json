@@ -56,7 +56,6 @@
     "roots/wordpress": "^7",
     "roots/wp-config": "1.0.0",
     "wpackagist-plugin/elementor": "^4",
-    "wpackagist-plugin/disable-gutenberg": "^3.2",
     "wenmark/elementor-pro": "^4",
     "wpengine/advanced-custom-fields-pro": "^6.5",
     "wenmark/analyticswp": "^2.2",
@@ -68,10 +67,7 @@
     "wenmark/gravityforms": "^3",
     "wpackagist-plugin/simple-page-ordering": "^2.7",
     "wpackagist-plugin/redirection": "^5.5",
-    "wpackagist-plugin/mp3-music-player-by-sonaar": "^5.10",
-    "wenmark/sonaar-music-pro": "^5.10",
-    "wenmark/gravityformsturnstile": "^1.5",
-    "wpackagist-plugin/akismet": "^5.7"
+    "wenmark/gravityformsturnstile": "^1.5"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
