@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1716452092b8a0ef11db9ea54b2b5212",
+    "content-hash": "aacf8bfaf8b1c7c7a692070c266d43cc",
     "packages": [
         {
             "name": "composer/installers",
@@ -1166,6 +1166,24 @@
             ],
             "description": "The most powerful Code Snippets Manager for WordPress.",
             "homepage": "https://wpcodebox.com"
+        },
+        {
+            "name": "wpackagist-plugin/akismet",
+            "version": "5.7.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/akismet/",
+                "reference": "tags/5.7.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/akismet.5.7.2.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/akismet/"
         },
         {
             "name": "wpackagist-plugin/disable-gutenberg",
