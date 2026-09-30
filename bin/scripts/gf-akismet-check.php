@@ -18,8 +18,12 @@ NAME
 
 DESCRIPTION
 
-  Checks existing Gravity Forms entries for spam using Akismet and/or a
-  gibberish-name heuristic, and optionally moves flagged entries to Spam.
+  Checks existing Gravity Forms entries for spam using a gibberish-name
+  heuristic (and Akismet, when it's active), and optionally moves flagged
+  entries to Spam.
+
+  The heuristic is the same one the GF Gibberish Name Spam Filter mu-plugin
+  applies to new submissions, so this is for cleaning up older entries.
 
   Dry run by default: nothing is changed unless `apply` is passed.
 
@@ -36,9 +40,10 @@ OPTIONS
     The Gravity Forms form ID to check. Required.
 
   [mark=<rule>]
-    Which verdict marks an entry as spam.
+    Which verdict marks an entry as spam. Any rule other than `pattern`
+    requires Akismet.
     ---
-    default: akismet
+    default: pattern
     options:
       - akismet   Akismet says spam
       - pattern   The name heuristic says spam
@@ -50,7 +55,7 @@ OPTIONS
     Only check the newest <n> active entries. Default: all active entries.
 
   [skip-akismet]
-    Don't call Akismet; use the name heuristic only. Implies mark=pattern.
+    Don't call Akismet even if it's active. Only valid with mark=pattern.
 
   [format=<format>]
     Render the report in a particular format. The summary line is written to
@@ -69,24 +74,24 @@ OPTIONS
 
 NAME HEURISTIC
 
-  Flags an entry when its first or last name is a single word of 10+ letters,
+  Flags an entry when any first or last name is a single word of 10+ letters,
   in mixed case, with 3+ capitals after the first letter
   (e.g. "DGVYwSUSadrHbGahYB"). Names like "McDonald" or "VanDerWoodsen" and
   names typed in all caps are not flagged.
 
 EXAMPLES
 
-    # Dry run: check all active entries in form 1 with Akismet and the heuristic
+    # Dry run: check all active entries in form 1
     $ wp eval-file bin/scripts/gf-akismet-check.php form=1
 
-    # Heuristic only, saved to a CSV for review
+    # Heuristic only (no Akismet calls), saved to a CSV for review
     $ wp eval-file bin/scripts/gf-akismet-check.php form=1 skip-akismet format=csv > report.csv
 
     # Check only the newest 50 entries
     $ wp eval-file bin/scripts/gf-akismet-check.php form=1 limit=50
 
-    # Move entries flagged by either check to Spam
-    $ wp eval-file bin/scripts/gf-akismet-check.php form=1 mark=either apply
+    # Move entries flagged by the heuristic to Spam
+    $ wp eval-file bin/scripts/gf-akismet-check.php form=1 apply
 HELP;
 
 if ( empty( $args ) || in_array( ltrim( $args[0], '-' ), array( 'help', 'h' ), true ) ) {
@@ -106,6 +111,11 @@ if ( ! class_exists( 'GFAPI' ) ) {
 	WP_CLI::error( 'Gravity Forms is not active.' );
 }
 
+// The name heuristic lives in the mu-plugin so the live spam filter and this script always agree.
+if ( ! function_exists( 'scruffy_gf_find_gibberish_name' ) ) {
+	WP_CLI::error( 'The GF Gibberish Name Spam Filter mu-plugin (web/app/mu-plugins/gf-gibberish-name-spam.php) is not loaded.' );
+}
+
 // Parse key=value / flag positional args.
 $opts = array();
 foreach ( $args as $arg ) {
@@ -116,7 +126,7 @@ foreach ( $args as $arg ) {
 $form_id      = isset( $opts['form'] ) ? absint( $opts['form'] ) : 0;
 $apply        = ! empty( $opts['apply'] );
 $skip_akismet = ! empty( $opts['skip-akismet'] );
-$mark         = $skip_akismet ? 'pattern' : ( isset( $opts['mark'] ) ? $opts['mark'] : 'akismet' );
+$mark         = isset( $opts['mark'] ) ? $opts['mark'] : 'pattern';
 $limit        = isset( $opts['limit'] ) ? absint( $opts['limit'] ) : 0;
 $format       = isset( $opts['format'] ) ? $opts['format'] : 'table';
 
@@ -129,39 +139,19 @@ if ( ! in_array( $mark, array( 'akismet', 'pattern', 'either', 'both' ), true ) 
 if ( ! in_array( $format, array( 'table', 'csv' ), true ) ) {
 	WP_CLI::error( "Invalid format=$format. Use table or csv." );
 }
-if ( $skip_akismet && isset( $opts['mark'] ) && 'pattern' !== $opts['mark'] ) {
-	WP_CLI::error( 'skip-akismet only works with mark=pattern.' );
-}
 
 $form = GFAPI::get_form( $form_id );
 if ( ! $form ) {
 	WP_CLI::error( "Form $form_id not found." );
 }
 
-if ( ! $skip_akismet ) {
-	if ( ! GFCommon::has_akismet() ) {
-		WP_CLI::error( 'Akismet is not active. Use skip-akismet to run the name heuristic only.' );
-	}
-	if ( ! Akismet::get_api_key() ) {
-		WP_CLI::error( 'Akismet has no API key configured.' );
-	}
+// Akismet is optional: check with it only when it's active and has a key.
+$use_akismet = ! $skip_akismet && GFCommon::has_akismet() && Akismet::get_api_key();
+if ( 'pattern' !== $mark && ! $use_akismet ) {
+	WP_CLI::error( $skip_akismet ? "mark=$mark needs Akismet, but skip-akismet was passed." : "mark=$mark needs Akismet, which is not active or has no API key." );
 }
 
-/**
- * Looks like keyboard-mash spam: a single run of 10+ letters with 3+ uppercase
- * letters after the first character, e.g. "DGVYwSUSadrHbGahYB". Real names such
- * as "McDonald" or "DeShawn" have at most one or two internal capitals.
- */
-$is_gibberish = function ( $value ) {
-	$value = trim( (string) $value );
-	// Skip non-letter values and names typed in all caps.
-	if ( ! preg_match( '/^[A-Za-z]{10,}$/', $value ) || ! preg_match( '/[a-z]/', $value ) ) {
-		return false;
-	}
-	return preg_match_all( '/[A-Z]/', substr( $value, 1 ) ) >= 3;
-};
-
-// Collect the first/last name values from the form's first Name field.
+// Collect the first/last name values from the form's first Name field for the report.
 $name_fields = GFAPI::get_fields_by_type( $form, array( 'name' ) );
 $name_field  = $name_fields ? $name_fields[0] : null;
 $get_names   = function ( $entry ) use ( $name_field ) {
@@ -208,8 +198,8 @@ foreach ( $ids as $id ) {
 
 	list( $first, $last ) = $get_names( $entry );
 
-	$pattern_spam = $is_gibberish( $first ) || $is_gibberish( $last );
-	$akismet_spam = $skip_akismet ? null : GFCommon::is_akismet_spam( $form, $entry );
+	$pattern_spam = '' !== scruffy_gf_find_gibberish_name( $form, $entry );
+	$akismet_spam = $use_akismet ? GFCommon::is_akismet_spam( $form, $entry ) : null;
 
 	switch ( $mark ) {
 		case 'akismet':
@@ -256,7 +246,7 @@ WP_CLI\Utils\format_items( $format, $rows, array( 'id', 'date', 'name', 'email',
 $summary = sprintf(
 	'%d checked. Akismet: %s spam. Pattern: %d spam. Flagged (mark=%s): %d.',
 	count( $rows ),
-	$skip_akismet ? 'n/a' : $counts['akismet'],
+	$use_akismet ? $counts['akismet'] : 'n/a',
 	$counts['pattern'],
 	$mark,
 	count( $flagged )
