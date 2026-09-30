@@ -137,6 +137,11 @@ Config::define('CONCATENATE_SCRIPTS', false);
 Config::define('SMTP2GO_USE_CONSTANTS', env('SMTP2GO_USE_CONSTANTS') ?? false );
 Config::define('SMTP2GO_API_KEY', env('SMTP2GO_API_KEY'));
 
+// Akismet checks defined(), so only define when set to avoid overriding a UI-saved key with an empty one
+if (env('WPCOM_API_KEY')) {
+    Config::define('WPCOM_API_KEY', env('WPCOM_API_KEY'));
+}
+
 /**
  * Debugging Settings
  */
