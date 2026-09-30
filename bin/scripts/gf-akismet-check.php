@@ -3,33 +3,103 @@
  * Check existing Gravity Forms entries for spam using Akismet and/or a
  * gibberish-name heuristic, and optionally move the flagged entries to Spam.
  *
- * Dry run by default: nothing is changed unless `apply` is passed.
- *
- * Usage:
- *   wp eval-file bin/scripts/gf-akismet-check.php form=<id> [mark=akismet|pattern|either|both] [limit=<n>] [skip-akismet] [format=table|csv] [apply]
- *
- * Arguments (key=value, no leading dashes, since `wp eval-file` only passes positional args):
- *   form=<id>       Required. The Gravity Forms form ID to check.
- *   mark=<rule>     Which verdict marks an entry as spam. Default: akismet.
- *                     akismet  Akismet says spam
- *                     pattern  Name heuristic says spam
- *                     either   Either one says spam
- *                     both     Both say spam
- *   limit=<n>       Only check the newest <n> active entries. Default: all.
- *   skip-akismet    Don't call Akismet (heuristic only; implies mark=pattern).
- *   format=<fmt>    Output format for the report: table (default) or csv.
- *   apply           Actually move flagged entries to Spam. Doing so also reports
- *                   each one to Akismet as spam, the same as the "Mark as spam"
- *                   bulk action in the admin.
- *
- * Examples:
- *   wp eval-file bin/scripts/gf-akismet-check.php form=1
- *   wp eval-file bin/scripts/gf-akismet-check.php form=1 mark=either format=csv > report.csv
- *   wp eval-file bin/scripts/gf-akismet-check.php form=1 mark=either apply
+ * Run with no arguments (or `help`) to print usage:
+ *   wp eval-file bin/scripts/gf-akismet-check.php
  */
 
 if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
 	exit( "Run this with `wp eval-file`.\n" );
+}
+
+$help = <<<'HELP'
+NAME
+
+  wp eval-file bin/scripts/gf-akismet-check.php
+
+DESCRIPTION
+
+  Checks existing Gravity Forms entries for spam using Akismet and/or a
+  gibberish-name heuristic, and optionally moves flagged entries to Spam.
+
+  Dry run by default: nothing is changed unless `apply` is passed.
+
+SYNOPSIS
+
+  wp eval-file bin/scripts/gf-akismet-check.php form=<id> [mark=<rule>] [limit=<n>] [skip-akismet] [format=<format>] [apply]
+
+  Options are passed as key=value words with no leading dashes, because
+  `wp eval-file` only accepts positional arguments.
+
+OPTIONS
+
+  form=<id>
+    The Gravity Forms form ID to check. Required.
+
+  [mark=<rule>]
+    Which verdict marks an entry as spam.
+    ---
+    default: akismet
+    options:
+      - akismet   Akismet says spam
+      - pattern   The name heuristic says spam
+      - either    Either one says spam
+      - both      Both say spam
+    ---
+
+  [limit=<n>]
+    Only check the newest <n> active entries. Default: all active entries.
+
+  [skip-akismet]
+    Don't call Akismet; use the name heuristic only. Implies mark=pattern.
+
+  [format=<format>]
+    Render the report in a particular format. The summary line is written to
+    STDERR, so `format=csv > report.csv` produces a clean file.
+    ---
+    default: table
+    options:
+      - table
+      - csv
+    ---
+
+  [apply]
+    Move flagged entries to Spam. Like the "Mark as spam" bulk action in the
+    admin, this also reports each entry to Akismet as spam, so review a dry
+    run first.
+
+NAME HEURISTIC
+
+  Flags an entry when its first or last name is a single word of 10+ letters,
+  in mixed case, with 3+ capitals after the first letter
+  (e.g. "DGVYwSUSadrHbGahYB"). Names like "McDonald" or "VanDerWoodsen" and
+  names typed in all caps are not flagged.
+
+EXAMPLES
+
+    # Dry run: check all active entries in form 1 with Akismet and the heuristic
+    $ wp eval-file bin/scripts/gf-akismet-check.php form=1
+
+    # Heuristic only, saved to a CSV for review
+    $ wp eval-file bin/scripts/gf-akismet-check.php form=1 skip-akismet format=csv > report.csv
+
+    # Check only the newest 50 entries
+    $ wp eval-file bin/scripts/gf-akismet-check.php form=1 limit=50
+
+    # Move entries flagged by either check to Spam
+    $ wp eval-file bin/scripts/gf-akismet-check.php form=1 mark=either apply
+HELP;
+
+if ( empty( $args ) || in_array( ltrim( $args[0], '-' ), array( 'help', 'h' ), true ) ) {
+	WP_CLI::line( $help );
+
+	// List the site's forms so the right form=<id> is easy to find.
+	if ( class_exists( 'GFAPI' ) ) {
+		WP_CLI::line( "\nAVAILABLE FORMS\n" );
+		foreach ( GFAPI::get_forms() as $f ) {
+			WP_CLI::line( sprintf( '  %-4d %s (%d active entries)', $f['id'], $f['title'], GFAPI::count_entries( $f['id'], array( 'status' => 'active' ) ) ) );
+		}
+	}
+	return;
 }
 
 if ( ! class_exists( 'GFAPI' ) ) {
