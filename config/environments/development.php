@@ -20,3 +20,12 @@ ini_set('display_errors', '1');
 
 // Enable plugin and theme updates and installation from the admin
 Config::define('DISALLOW_FILE_MODS', false);
+
+// Plugins that must not run locally (lukasbesch/bedrock-plugin-disabler).
+// SMTP2GO sends through its own API, bypassing Mailpit.
+Config::define('DISABLED_PLUGINS', [
+    'spinupwp/spinupwp.php',
+    'limit-login-attempts-reloaded/limit-login-attempts-reloaded.php',
+    'smtp2go/smtp2go-wordpress-plugin.php',
+    'analyticswp/analyticswp.php',
+]);

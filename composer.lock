@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e2f44beb34e35fe8c2d4d1bb428d200",
+    "content-hash": "347a16dccadee55f98321c4e6fbe9fed",
     "packages": [
         {
             "name": "composer/installers",
@@ -213,6 +213,50 @@
                 }
             ],
             "time": "2026-08-24T09:06:52+00:00"
+        },
+        {
+            "name": "lukasbesch/bedrock-plugin-disabler",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lukasbesch/bedrock-plugin-disabler.git",
+                "reference": "81072bf0e6172f8d712b2942901ea73e2a776bbe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lukasbesch/bedrock-plugin-disabler/zipball/81072bf0e6172f8d712b2942901ea73e2a776bbe",
+                "reference": "81072bf0e6172f8d712b2942901ea73e2a776bbe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "roave/security-advisories": "dev-master",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukas Besch",
+                    "email": "connect@lukasbesch.com"
+                },
+                {
+                    "name": "Kamil Grzegorczyk",
+                    "email": "kamilgrzegorczyk@gmail.com"
+                }
+            ],
+            "description": "Disable certain plugins in non-production environments using PHP constants.",
+            "support": {
+                "issues": "https://github.com/lukasbesch/bedrock-plugin-disabler/issues",
+                "source": "https://github.com/lukasbesch/bedrock-plugin-disabler/tree/v1.5.0"
+            },
+            "time": "2026-02-06T01:10:33+00:00",
+            "published-time": "2026-02-06T01:11:53+00:00"
         },
         {
             "name": "oscarotero/env",
@@ -2522,5 +2566,5 @@
         "php": ">=8.1"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }

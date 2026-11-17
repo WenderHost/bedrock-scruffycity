@@ -67,7 +67,8 @@
     "wenmark/gravityforms": "^3",
     "wpackagist-plugin/simple-page-ordering": "^2.7",
     "wpackagist-plugin/redirection": "^5.5",
-    "wenmark/gravityformsturnstile": "^1.5"
+    "wenmark/gravityformsturnstile": "^1.5",
+    "lukasbesch/bedrock-plugin-disabler": "^1.4"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
